@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="生存分析报告（Survival Analysis） 12111643 施佳慧\n生存分析是一组统计方法，用于检查和预测感兴趣事件发生的时间。这种分析形式起源于医疗保健，重点关注死亡时间。从那时起，生存分析已成功应用于全球几乎所有行业的用例。\n">
+<title>生存分析报告</title>
+
+<link rel='canonical' href='https://shijiahui2023.github.io/p/%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="生存分析报告">
+<meta property='og:description' content="生存分析报告（Survival Analysis） 12111643 施佳慧\n生存分析是一组统计方法，用于检查和预测感兴趣事件发生的时间。这种分析形式起源于医疗保健，重点关注死亡时间。从那时起，生存分析已成功应用于全球几乎所有行业的用例。\n">
+<meta property='og:url' content='https://shijiahui2023.github.io/p/%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/'>
+<meta property='og:site_name' content='演示站点'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='生存分析' /><meta property='article:tag' content='统计方法' /><meta property='article:published_time' content='2025-03-30T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-30T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="生存分析报告">
+<meta name="twitter:description" content="生存分析报告（Survival Analysis） 12111643 施佳慧\n生存分析是一组统计方法，用于检查和预测感兴趣事件发生的时间。这种分析形式起源于医疗保健，重点关注死亡时间。从那时起，生存分析已成功应用于全球几乎所有行业的用例。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_686cda0a210898f7.png" width="300"
+                            height="299" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">演示站点</a></h1>
+            <h2 class="site-description">演示说明</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/CaiJimmy/hugo-theme-stack'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://shijiahui2023.github.io/en/" >English</option>
+                                
+                                    <option value="https://shijiahui2023.github.io/" selected>中文</option>
+                                
+                                    <option value="https://shijiahui2023.github.io/ar/" >عربي</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#生存分析报告survival-analysis">生存分析报告（Survival Analysis）</a>
+      <ol>
+        <li><a href="#数据预处理">数据预处理</a>
+          <ol>
+            <li><a href="#数据集介绍">数据集介绍</a></li>
+            <li><a href="#数据转换与筛选">数据转换与筛选</a></li>
+          </ol>
+        </li>
+        <li><a href="#生存概率曲线">生存概率曲线</a>
+          <ol>
+            <li><a href="#kaplan-meierkm">Kaplan-Meier（KM）</a></li>
+            <li><a href="#模型构建">模型构建</a></li>
+            <li><a href="#实验结果">实验结果</a></li>
+            <li><a href="#结论">结论</a></li>
+          </ol>
+        </li>
+        <li><a href="#cox-比例风险模型">Cox 比例风险模型</a>
+          <ol>
+            <li></li>
+            <li><a href="#模型构建-1">模型构建</a></li>
+            <li><a href="#实验结果-1">实验结果</a></li>
+          </ol>
+        </li>
+        <li><a href="#加速失效时间模型">加速失效时间模型</a>
+          <ol>
+            <li><a href="#模型介绍-1">模型介绍</a></li>
+            <li><a href="#模型构建-2">模型构建</a></li>
+            <li><a href="#实验结果-2">实验结果</a></li>
+          </ol>
+        </li>
+        <li><a href="#客户终身价值">客户终身价值</a>
+          <ol>
+            <li><a href="#生命周期价值ltv">生命周期价值（LTV）</a></li>
+            <li><a href="#npv-图表">NPV 图表</a></li>
+          </ol>
+        </li>
+        <li><a href="#总结">总结</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" >
+                数据分析
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/">生存分析报告</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 30, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 14 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="生存分析报告survival-analysis">生存分析报告（Survival Analysis）
+</h2><p>12111643 施佳慧</p>
+<p>生存分析是一组统计方法，用于检查和预测感兴趣事件发生的时间。这种分析形式起源于医疗保健，重点关注死亡时间。从那时起，生存分析已成功应用于全球几乎所有行业的用例。</p>
+<h3 id="数据预处理">数据预处理
+</h3><p>数据集来自 IBM，旨在模仿一家虚构的电信公司。此数据集中的每条记录代表一个订户，并包含有关其各自的人口统计、服务计划、媒体使用情况和订阅状态的信息。</p>
+<h4 id="数据集介绍">数据集介绍
+</h4><p><strong>客户基本信息</strong></p>
+<ul>
+<li>
+<p><code>customerID</code>: 客户唯一标识符</p>
+</li>
+<li>
+<p><code>gender</code>: 客户性别</p>
+</li>
+<li>
+<p><code>seniorCitizen</code>: 标识客户是否为老年人(1/0)</p>
+</li>
+<li>
+<p><code>partner</code>: 客户是否有伴侣(Yes/No)</p>
+</li>
+<li>
+<p><code>dependents</code>: 客户是否有家属(Yes/No)</p>
+</li>
+</ul>
+<p><strong>客户服务使用情况</strong></p>
+<ul>
+<li>
+<p><code>tenure</code>: 客户使用公司服务的月数</p>
+</li>
+<li>
+<p><code>phoneService</code>: 是否订阅了电话服务(Yes/No)</p>
+</li>
+<li>
+<p><code>multipleLines</code>: 是否有多线路服务(Yes/No/No phone service)</p>
+</li>
+<li>
+<p><code>internetService</code>: 互联网服务提供商类型(DSL, Fiber optic, No)</p>
+</li>
+<li>
+<p><code>onlineSecurity</code>: 是否使用在线安全服务(Yes/No/No internet service)</p>
+</li>
+<li>
+<p><code>onlineBackup</code>: 是否使用在线备份服务(Yes/No/No internet service)</p>
+</li>
+<li>
+<p><code>deviceProtection</code>: 是否有设备保护计划(Yes/No/No internet service)</p>
+</li>
+<li>
+<p><code>techSupport</code>: 是否有技术支持服务(Yes/No/No internet service)</p>
+</li>
+<li>
+<p><code>streamingTV</code>: 是否有流媒体电视服务(Yes/No/No internet service)</p>
+</li>
+<li>
+<p><code>streamingMovies</code>: 是否有流媒体电影服务(Yes/No/No internet service)</p>
+</li>
+</ul>
+<p><strong>合同与账单信息</strong></p>
+<ul>
+<li>
+<p><code>contract</code>: 合同类型(Month-to-month, One year, Two year)</p>
+</li>
+<li>
+<p><code>paperlessBilling</code>: 是否使用无纸化账单(Yes/No)</p>
+</li>
+<li>
+<p><code>paymentMethod</code>: 付款方式(Electronic check, Mailed check, Bank transfer, Credit card)</p>
+</li>
+<li>
+<p><code>monthlyCharges</code>: 每月费用</p>
+</li>
+<li>
+<p><code>totalCharges</code>: 总费用</p>
+</li>
+</ul>
+<h4 id="数据转换与筛选">数据转换与筛选
+</h4><p>将字符串类型的流失标记<code>churnString</code>(&ldquo;Yes&rdquo;/&ldquo;No&rdquo;)转换为数值型<code>churn</code>(1/0) ，使用<code>when().otherwise()</code>条件表达式处理异常值。仅保留按月订阅的客户(<code>contract == 'Month-to-month'</code>) ,排除没有互联网服务的客户(<code>internetService != 'No'</code>), 移除原始的<code>churnString</code>列.将原始数据直接保存为Bronze层表，保留数据的原始形态不做任何处理；然后对数据进行清洗转换，包括将流失标记转为数值型、筛选特定合同类型和服务用户，并移除冗余列，最终将处理后的结构化数据存储为Silver表。</p>
+<p>Silver:</p>
+<p><strong>客户基本信息</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>customerID</th>
+          <th>gender</th>
+          <th>seniorCitizen</th>
+          <th>partner</th>
+          <th>dependents</th>
+          <th>tenure</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>7590-VHVEG</td>
+          <td>Female</td>
+          <td>0.0</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>1.0</td>
+      </tr>
+      <tr>
+          <td>3668-QPYBK</td>
+          <td>Male</td>
+          <td>0.0</td>
+          <td>No</td>
+          <td>No</td>
+          <td>2.0</td>
+      </tr>
+      <tr>
+          <td>9237-HQITU</td>
+          <td>Female</td>
+          <td>0.0</td>
+          <td>No</td>
+          <td>No</td>
+          <td>2.0</td>
+      </tr>
+      <tr>
+          <td>9305-CDSKC</td>
+          <td>Female</td>
+          <td>0.0</td>
+          <td>No</td>
+          <td>No</td>
+          <td>8.0</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>服务信息</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>customerID</th>
+          <th>phoneService</th>
+          <th>multipleLines</th>
+          <th>internetService</th>
+          <th>onlineSecurity</th>
+          <th>onlineBackup</th>
+          <th>deviceProtection</th>
+          <th>techSupport</th>
+          <th>streamingTV</th>
+          <th>streamingMovies</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>7590-VHVEG</td>
+          <td>No</td>
+          <td>No phone service</td>
+          <td>DSL</td>
+          <td>No</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>3668-QPYBK</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>DSL</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>9237-HQITU</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>Fiber optic</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>9305-CDSKC</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>Fiber optic</td>
+          <td>No</td>
+          <td>No</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>Yes</td>
+          <td>Yes</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>合同与账单信息</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>customerID</th>
+          <th>contract</th>
+          <th>paperlessBilling</th>
+          <th>paymentMethod</th>
+          <th>monthlyCharges</th>
+          <th>totalCharges</th>
+          <th>churn</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>7590-VHVEG</td>
+          <td>Month-to-month</td>
+          <td>Yes</td>
+          <td>Electronic check</td>
+          <td>29.85</td>
+          <td>29.85</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td>3668-QPYBK</td>
+          <td>Month-to-month</td>
+          <td>Yes</td>
+          <td>Mailed check</td>
+          <td>53.85</td>
+          <td>108.15</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>9237-HQITU</td>
+          <td>Month-to-month</td>
+          <td>Yes</td>
+          <td>Electronic check</td>
+          <td>70.7</td>
+          <td>151.65</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>9305-CDSKC</td>
+          <td>Month-to-month</td>
+          <td>Yes</td>
+          <td>Electronic check</td>
+          <td>99.65</td>
+          <td>820.5</td>
+          <td>1</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="生存概率曲线">生存概率曲线
+</h3><h4 id="kaplan-meierkm">Kaplan-Meier（KM）
+</h4><p>Kaplan-Meier（KM）估计是一种<strong>非参数统计方法</strong>，用于估计<strong>生存函数（Survival Function）</strong>，即在给定时间点个体仍然存活的概率。它广泛应用于医学、工程、金融等领域，尤其适用于<strong>右删失（Right-Censored</strong>数据（即部分个体的最终事件发生时间未知）。</p>
+$$
+S(t) = \prod_{i: t_i \leq t} \left( 1 - \frac{d_i}{n_i} \right)
+$$<p>其中：</p>
+<ul>
+<li>\( S(t) \)：在时间 \( t \) 时的生存概率</li>
+<li>\( d_i \)：在时间 \( t_i \) 发生事件（如死亡、流失）的个体数</li>
+<li>\( n_i \)：在时间 \( t_i \) 之前仍处于风险中的个体数（即尚未发生事件或删失）</li>
+</ul>
+<h4 id="模型构建">模型构建
+</h4><p>接下来我使用 Kaplan-MeierFitter 进行生存分析，首先定义生存时间 <code>tenure</code> 作为观察时长，并将 <code>churn</code> 转换为事件状态（1 表示客户流失）。然后，我们用这些数据拟合 Kaplan-Meier 模型，并绘制生存曲线，以直观展示客户留存的变化趋势。</p>
+<ul>
+<li>
+<p>T = 观察时长/生存时间(这里使用客户留存月数&rsquo;tenure')</p>
+</li>
+<li>
+<p>C = 事件观察状态(这里用&rsquo;churn&rsquo;作为事件标志，1表示客户流失)</p>
+</li>
+</ul>
+<h4 id="实验结果">实验结果
+</h4><p><strong>Kaplan-MeierFitter Graph</strong></p>
+<img src="Picture/1.png" width="1000">
+<p><strong>Log-rank Test Results</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>Category</th>
+          <th>Group</th>
+          <th>Test Statistic</th>
+          <th>p-value</th>
+          <th>-log2(p)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Gender</td>
+          <td>Female Male</td>
+          <td>1.61011</td>
+          <td>0.204476</td>
+          <td>2.289995</td>
+      </tr>
+      <tr>
+          <td>Dependents</td>
+          <td>No Yes</td>
+          <td>13.405914</td>
+          <td>0.000251</td>
+          <td>11.96099</td>
+      </tr>
+      <tr>
+          <td>Online Security</td>
+          <td>No Yes</td>
+          <td>75.800079</td>
+          <td>3.14e-18</td>
+          <td>58.144453</td>
+      </tr>
+      <tr>
+          <td>Senior Citizen</td>
+          <td>0.0 1.0</td>
+          <td>49.027784</td>
+          <td>2.52e-12</td>
+          <td>38.52764</td>
+      </tr>
+      <tr>
+          <td>Partner</td>
+          <td>No Yes</td>
+          <td>257.844159</td>
+          <td>5.06e-58</td>
+          <td>190.331712</td>
+      </tr>
+      <tr>
+          <td>Phone Service</td>
+          <td>No Yes</td>
+          <td>0.778505</td>
+          <td>0.377599</td>
+          <td>1.405074</td>
+      </tr>
+      <tr>
+          <td>Multiple Lines</td>
+          <td>No - No phone service</td>
+          <td>35.546250</td>
+          <td>2.49e-09</td>
+          <td>28.580824</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>No - Yes</td>
+          <td>411.225536</td>
+          <td>1.98e-91</td>
+          <td>301.307649</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>No phone service - Yes</td>
+          <td>44.056629</td>
+          <td>3.19e-11</td>
+          <td>34.867600</td>
+      </tr>
+      <tr>
+          <td>Internet Service</td>
+          <td>DSL - Fiber optic</td>
+          <td>85.455399</td>
+          <td>2.37e-20</td>
+          <td>65.193753</td>
+      </tr>
+      <tr>
+          <td>Streaming TV</td>
+          <td>No Yes</td>
+          <td>140.761789</td>
+          <td>1.81e-32</td>
+          <td>105.442545</td>
+      </tr>
+      <tr>
+          <td>Streaming Movies</td>
+          <td>No Yes</td>
+          <td>170.262183</td>
+          <td>6.48e-39</td>
+          <td>126.858111</td>
+      </tr>
+      <tr>
+          <td>Online Backup</td>
+          <td>No Yes</td>
+          <td>300.455875</td>
+          <td>2.62e-67</td>
+          <td>221.179115</td>
+      </tr>
+      <tr>
+          <td>Device Protection</td>
+          <td>No Yes</td>
+          <td>169.868512</td>
+          <td>7.90e-39</td>
+          <td>126.572486</td>
+      </tr>
+      <tr>
+          <td>Tech Support</td>
+          <td>No Yes</td>
+          <td>25.969416</td>
+          <td>3.47e-07</td>
+          <td>21.459105</td>
+      </tr>
+      <tr>
+          <td>Paperless Billing</td>
+          <td>No Yes</td>
+          <td>25.263459</td>
+          <td>5.00e-07</td>
+          <td>20.931298</td>
+      </tr>
+      <tr>
+          <td>Payment Method</td>
+          <td>Bank Transfer (Auto) - Credit Card (Auto)</td>
+          <td>0.153545</td>
+          <td>6.95e-01</td>
+          <td>0.524562</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>Bank Transfer (Auto) - Electronic Check</td>
+          <td>55.164654</td>
+          <td>1.11e-13</td>
+          <td>43.036532</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>Bank Transfer (Auto) - Mailed Check</td>
+          <td>190.000457</td>
+          <td>3.18e-43</td>
+          <td>141.174532</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>Credit Card (Auto) - Electronic Check</td>
+          <td>45.167592</td>
+          <td>1.81e-11</td>
+          <td>35.686227</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>Credit Card (Auto) - Mailed Check</td>
+          <td>165.361074</td>
+          <td>7.63e-38</td>
+          <td>123.301883</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>Electronic Check - Mailed Check</td>
+          <td>72.323100</td>
+          <td>1.83e-17</td>
+          <td>55.603331</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>Payment Method</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>Group</th>
+          <th>Test Statistic</th>
+          <th>p-value</th>
+          <th>-log2(p)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Bank Transfer (Auto) - Credit Card (Auto)</td>
+          <td>0.153545</td>
+          <td>6.95e-01</td>
+          <td>0.524562</td>
+      </tr>
+      <tr>
+          <td>Bank Transfer (Auto) - Electronic Check</td>
+          <td>55.164654</td>
+          <td>1.11e-13</td>
+          <td>43.036532</td>
+      </tr>
+      <tr>
+          <td>Bank Transfer (Auto) - Mailed Check</td>
+          <td>190.000457</td>
+          <td>3.18e-43</td>
+          <td>141.174532</td>
+      </tr>
+      <tr>
+          <td>Credit Card (Auto) - Electronic Check</td>
+          <td>45.167592</td>
+          <td>1.81e-11</td>
+          <td>35.686227</td>
+      </tr>
+      <tr>
+          <td>Credit Card (Auto) - Mailed Check</td>
+          <td>165.361074</td>
+          <td>7.63e-38</td>
+          <td>123.301883</td>
+      </tr>
+      <tr>
+          <td>Electronic Check - Mailed Check</td>
+          <td>72.323100</td>
+          <td>1.83e-17</td>
+          <td>55.603331</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>Top 10 survival probability</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>DSL</th>
+          <th>Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>0</td>
+          <td>1.000000</td>
+      </tr>
+      <tr>
+          <td>1</td>
+          <td>0.902698</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>0.864380</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>0.834702</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>0.810522</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>0.794352</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>0.783900</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>0.776362</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>0.768486</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>0.750833</td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="结论">结论
+</h4><p>首先，性别对客户流失没有显著影响（p = 0.204476），而有抚养人的客户流失显著低于没有抚养人的客户（p = 0.000251），表明抚养人状态可能是客户留存的一个积极因素。此外，拥有在线安全服务的客户流失显著低于没有该服务的客户（p ≈ 3.14e-18），这表明在线安全服务对于提高客户留存具有显著作用。对于老年客户（p ≈ 2.52e-12），其流失率较高，说明老年人群体在客户流失方面的风险较大。伴侣状态也是一个关键因素，有伴侣的客户流失显著较低（p ≈ 5.06e-58），显示出伴侣在客户留存中的重要作用。相反，电话服务的有无对客户流失没有显著影响（p = 0.377599），表明电话服务对客户流失的影响较小。</p>
+<p>在多线路服务方面，选择多线路服务的客户流失显著低于未选择的客户（p ≈ 1.98e-91），而没有电话服务的客户流失率较高，表明多线路服务是留住客户的一个有效手段。互联网服务也对客户流失产生影响，光纤服务用户的流失较低（p ≈ 2.37e-20），而DSL服务用户的流失较高，表明光纤互联网对客户留存有积极作用。电视流媒体和电影流媒体服务的使用也与客户流失相关，选择这些服务的客户流失较低（p ≈ 1.81e-32 和 p ≈ 6.48e-39），体现了流媒体服务对客户留存的重要影响。</p>
+<p>此外，在线备份和设备保护服务的客户流失也显著较低（p ≈ 2.62e-67 和 p ≈ 7.90e-39），说明这两项服务在减少客户流失方面发挥了积极作用。技术支持的有无也对客户留存起到了重要作用，有技术支持的客户流失显著较低（p ≈ 3.47e-07）。电子账单服务对客户留存也有显著影响（p ≈ 5.00e-07），选择电子账单的客户流失较低。支付方式方面，不同支付方式的客户流失差异明显，尤其是通过电子支票支付的客户流失显著较低（p ≈ 1.11e-13），而通过邮寄支票支付的客户流失较高（p ≈ 3.18e-43）。</p>
+<p>DSL用户的留存率随时间的推移逐渐下降，但初期留存率仍较高（第0月为1.0，第9月为0.750833），表明随着时间的推移，DSL服务的客户可能会逐渐流失。总的来说，客户流失受到多个因素的影响，尤其是是否拥有伴侣、是否使用互联网服务、是否选择在线安全、设备保护和技术支持等服务。</p>
+<h3 id="cox-比例风险模型">Cox 比例风险模型
+</h3><h5 id="模型介绍">模型介绍
+</h5><p>Kaplan-Meier 用于估计生存概率，而 Cox 比例风险用于估计风险比。风险比表示两个个体（或群体）之间存在的风险差异。Cox比例风险模型（Cox Proportional Hazards Model）是一种广泛应用于生存分析的回归模型，用于分析影响生存时间的因素。其主要特点是可以处理删失数据，并且不要求事先指定基础生存函数的形式。Cox模型通常用于估计某些变量对生存时间的影响。Cox比例风险模型的基本假设是风险比（hazard ratio）是各个解释变量的线性组合。</p>
+<p><strong>模型公式：</strong></p>
+$$
+h(t | X) = h_0(t) \exp(\beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p)
+$$<p>其中：</p>
+<ul>
+<li>$ h(t | X) $ 是给定协变量 $ X = (X_1, X_2, \dots, X_p) $ 的条件下，时间 $ t $ 处的风险函数（即生存时间的瞬时风险）。</li>
+<li>$ h_0(t) $ 是基准风险函数，即当所有协变量为零时的风险函数。</li>
+<li>$ X_1, X_2, \dots, X_p $ 是协变量（也称为解释变量、特征），例如年龄、性别、治疗方法等。</li>
+<li>$ \beta_1, \beta_2, \dots, \beta_p $ 是需要估计的回归系数。</li>
+</ul>
+<p><strong>风险比</strong>:</p>
+<p>Cox模型中的回归系数 $ \beta_i $ 代表了每个变量的影响。为了便于解释，我们可以计算每个变量的风险比（Hazard Ratio, HR）：</p>
+$$
+HR = \exp(\beta_i)
+$$<p>风险比 $ HR $ 表示在其他变量保持不变的情况下，协变量 $ X_i $ 增加一个单位时，事件发生的风险比值。</p>
+<ul>
+<li>如果 $ HR &gt; 1 $，说明该变量的增大增加了事件发生的风险。</li>
+<li>如果 $ HR &lt; 1 $，说明该变量的增大降低了事件发生的风险。</li>
+<li>如果 $ HR = 1 $，则该变量对事件发生的风险没有影响。</li>
+</ul>
+<h4 id="模型构建-1">模型构建
+</h4><p>为了使用 Lifelines 库拟合 Cox 比例风险模型，首先对分类列进行单热编码。首先，代码对 <code>telco_pd</code> 数据框中的几个分类变量（<code>dependents</code>、<code>internetService</code>、<code>onlineBackup</code>、<code>techSupport</code> 和 <code>paperlessBilling</code>）进行独热编码（One-Hot Encoding），后面再将这些分类变量转换为多个二进制列，例如 <code>dependents_Yes</code> 和 <code>internetService_DSL</code>，表示该类别是否存在。其后再创建一个新的数据框 <code>survival_pd</code>，其中仅包含进行生存分析所需的变量：<code>churn</code>（客户流失，作为生存分析的事件变量）、<code>tenure</code>（客户留存时间，作为生存时间）、以及几个经过编码的关键变量（<code>dependents_Yes</code>、<code>internetService_DSL</code>、<code>onlineBackup_Yes</code> 和 <code>techSupport_Yes</code>）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">encode_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;dependents&#39;</span><span class="p">,</span><span class="s1">&#39;internetService&#39;</span><span class="p">,</span><span class="s1">&#39;onlineBackup&#39;</span><span class="p">,</span><span class="s1">&#39;techSupport&#39;</span><span class="p">,</span><span class="s1">&#39;paperlessBilling&#39;</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>基础信息</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>customerID</th>
+          <th>gender</th>
+          <th>seniorCitizen</th>
+          <th>partner</th>
+          <th>tenure</th>
+          <th>phoneService</th>
+          <th>multipleLines</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>7590-VHVEG</td>
+          <td>Female</td>
+          <td>0.0</td>
+          <td>Yes</td>
+          <td>1.0</td>
+          <td>No</td>
+          <td>No phone service</td>
+      </tr>
+      <tr>
+          <td>3668-QPYBK</td>
+          <td>Male</td>
+          <td>0.0</td>
+          <td>No</td>
+          <td>2.0</td>
+          <td>Yes</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>9237-HQITU</td>
+          <td>Female</td>
+          <td>0.0</td>
+          <td>No</td>
+          <td>2.0</td>
+          <td>Yes</td>
+          <td>No</td>
+      </tr>
+      <tr>
+          <td>9305-CDSKC</td>
+          <td>Female</td>
+          <td>0.0</td>
+          <td>No</td>
+          <td>8.0</td>
+          <td>Yes</td>
+          <td>Yes</td>
+      </tr>
+      <tr>
+          <td>1452-KIOVK</td>
+          <td>Male</td>
+          <td>0.0</td>
+          <td>No</td>
+          <td>22.0</td>
+          <td>Yes</td>
+          <td>Yes</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>服务与账单信息</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>customerID</th>
+          <th>onlineSecurity</th>
+          <th>deviceProtection</th>
+          <th>streamingTV</th>
+          <th>dependents_No</th>
+          <th>dependents_Yes</th>
+          <th>internetService_DSL</th>
+          <th>internetService_Fiber optic</th>
+          <th>onlineBackup_No</th>
+          <th>onlineBackup_Yes</th>
+          <th>techSupport_No</th>
+          <th>techSupport_Yes</th>
+          <th>paperlessBilling_No</th>
+          <th>paperlessBilling_Yes</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>7590-VHVEG</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+          <td>True</td>
+          <td>False</td>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+          <td>True</td>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+          <td>True</td>
+      </tr>
+      <tr>
+          <td>3668-QPYBK</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>No</td>
+          <td>True</td>
+          <td>False</td>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+          <td>True</td>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+          <td>True</td>
+      </tr>
+      <tr>
+          <td>9237-HQITU</td>
+          <td>No</td>
+          <td>No</td>
+          <td>No</td>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+          <td>True</td>
+          <td>True</td>
+          <td>False</td>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+          <td>True</td>
+      </tr>
+      <tr>
+          <td>9305-CDSKC</td>
+          <td>No</td>
+          <td>Yes</td>
+          <td>Yes</td>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+          <td>True</td>
+          <td>True</td>
+          <td>False</td>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+          <td>True</td>
+      </tr>
+      <tr>
+          <td>1452-KIOVK</td>
+          <td>No</td>
+          <td>No</td>
+          <td>Yes</td>
+          <td>False</td>
+          <td>True</td>
+          <td>False</td>
+          <td>True</td>
+          <td>False</td>
+          <td>True</td>
+          <td>True</td>
+          <td>False</td>
+          <td>False</td>
+          <td>True</td>
+      </tr>
+  </tbody>
+</table></div>
+<h4 id="实验结果-1">实验结果
+</h4><h5 id="拟合cox比例风险模型">拟合Cox比例风险模型
+</h5><p><strong>模型信息</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Model</strong></td>
+          <td>lifelines.CoxPHFitter</td>
+      </tr>
+      <tr>
+          <td><strong>Duration Column</strong></td>
+          <td>&rsquo;tenure'</td>
+      </tr>
+      <tr>
+          <td><strong>Event Column</strong></td>
+          <td>&lsquo;churn&rsquo;</td>
+      </tr>
+      <tr>
+          <td><strong>Baseline Estimation</strong></td>
+          <td>breslow</td>
+      </tr>
+      <tr>
+          <td><strong>Number of Observations</strong></td>
+          <td>3351</td>
+      </tr>
+      <tr>
+          <td><strong>Number of Events Observed</strong></td>
+          <td>1556</td>
+      </tr>
+      <tr>
+          <td><strong>Partial Log-Likelihood</strong></td>
+          <td>-11315.95</td>
+      </tr>
+      <tr>
+          <td><strong>Time Fit Was Run</strong></td>
+          <td>2025-03-26 11:56:38 UTC</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>回归系数结果</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>变量</th>
+          <th>coef</th>
+          <th>exp(coef)</th>
+          <th>se(coef)</th>
+          <th>coef lower 95%</th>
+          <th>coef upper 95%</th>
+          <th>exp(coef) lower 95%</th>
+          <th>exp(coef) upper 95%</th>
+          <th>z</th>
+          <th>p</th>
+          <th>-log2(p)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>dependents_Yes</td>
+          <td>-0.33</td>
+          <td>0.72</td>
+          <td>0.07</td>
+          <td>-0.47</td>
+          <td>-0.19</td>
+          <td>0.63</td>
+          <td>0.83</td>
+          <td>-4.64</td>
+          <td>&lt;0.005</td>
+          <td>18.12</td>
+      </tr>
+      <tr>
+          <td>internetService_DSL</td>
+          <td>-0.22</td>
+          <td>0.80</td>
+          <td>0.06</td>
+          <td>-0.33</td>
+          <td>-0.10</td>
+          <td>0.72</td>
+          <td>0.90</td>
+          <td>-3.68</td>
+          <td>&lt;0.005</td>
+          <td>12.07</td>
+      </tr>
+      <tr>
+          <td>onlineBackup_Yes</td>
+          <td>-0.78</td>
+          <td>0.46</td>
+          <td>0.06</td>
+          <td>-0.89</td>
+          <td>-0.66</td>
+          <td>0.41</td>
+          <td>0.52</td>
+          <td>-13.13</td>
+          <td>&lt;0.005</td>
+          <td>128.37</td>
+      </tr>
+      <tr>
+          <td>techSupport_Yes</td>
+          <td>-0.64</td>
+          <td>0.53</td>
+          <td>0.08</td>
+          <td>-0.79</td>
+          <td>-0.49</td>
+          <td>0.46</td>
+          <td>0.61</td>
+          <td>-8.48</td>
+          <td>&lt;0.005</td>
+          <td>55.36</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>统计指标</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>指标</th>
+          <th>值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Concordance</strong></td>
+          <td>0.64</td>
+      </tr>
+      <tr>
+          <td><strong>Partial AIC</strong></td>
+          <td>22639.90</td>
+      </tr>
+      <tr>
+          <td><strong>Log-Likelihood Ratio Test</strong></td>
+          <td>337.77 on 4 df</td>
+      </tr>
+      <tr>
+          <td><strong>-log2(p) of LL-Ratio Test</strong></td>
+          <td>236.24</td>
+      </tr>
+  </tbody>
+</table></div>
+<img src="Picture/2.png" width="600">
+<p>从回归模型的结果来看，影响客户流失的几个重要因素包括是否有家属、网络服务类型、在线备份服务和技术支持服务。有家属的用户相比无家属的用户流失风险更低，可能是由于家庭用户对服务的依赖性更强。选择DSL宽带的用户相比其他类型的宽带用户流失风险更低，这可能与DSL用户的使用习惯或缺乏更优选择有关。订阅在线备份和技术支持服务的用户流失风险明显降低，这表明增值服务可能有助于提高用户粘性。此外，模型的一致性指数为0.64，说明它在一定程度上能够预测用户流失风险。然而，部分变量不满足比例风险假设，例如网络服务类型、在线备份和技术支持服务，建议在后续分析中采用分层方法或加入时间交互项进行调整。总体而言，这些结果表明，企业可以通过推广增值服务、优化家庭用户策略等方式来减少客户流失。</p>
+<h5 id="cox比例风险模型假设检验">Cox比例风险模型假设检验
+</h5><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>变量</th>
+          <th>方法</th>
+          <th>统计量</th>
+          <th>p 值</th>
+          <th>-log2(p)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>dependents_Yes</strong></td>
+          <td>km</td>
+          <td>1.48</td>
+          <td>0.22</td>
+          <td>2.16</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>rank</td>
+          <td>0.81</td>
+          <td>0.37</td>
+          <td>1.44</td>
+      </tr>
+      <tr>
+          <td><strong>internetService_DSL</strong></td>
+          <td>km</td>
+          <td>20.98</td>
+          <td>&lt;0.005</td>
+          <td>17.72</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>rank</td>
+          <td>26.71</td>
+          <td>&lt;0.005</td>
+          <td>22.01</td>
+      </tr>
+      <tr>
+          <td><strong>onlineBackup_Yes</strong></td>
+          <td>km</td>
+          <td>17.80</td>
+          <td>&lt;0.005</td>
+          <td>15.31</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>rank</td>
+          <td>17.47</td>
+          <td>&lt;0.005</td>
+          <td>15.07</td>
+      </tr>
+      <tr>
+          <td><strong>techSupport_Yes</strong></td>
+          <td>km</td>
+          <td>8.09</td>
+          <td>&lt;0.005</td>
+          <td>7.81</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>rank</td>
+          <td>13.76</td>
+          <td>&lt;0.005</td>
+          <td>12.23</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>变量 <code>internetService_DSL</code> (p &lt; 5e-05)、<code>onlineBackup_Yes</code> (p &lt; 5e-05) 和 <code>techSupport_Yes</code> (p = 0.0002) 不满足比例风险假设。</p>
+<p><strong>Schoenfeld 残差图</strong></p>
+<img src="Picture/3.png" width="600">
+<p>图中 <code>dependents_Yes</code> 变量的 Schoenfeld 残差随机分布且 p 值较大，符合比例风险假设，而 <code>internetService_DSL</code>、<code>onlineBackup_Yes</code> 和 <code>techSupport_Yes</code> 的残差趋势随时间变化，p 值极小，不满足比例风险假设，建议采用分层 Cox 回归或引入时间交互项进行修正。</p>
+<p><strong>对数-对数生存曲线（Log-log plot）</strong></p>
+<p>目标变量: km_vars = [&ldquo;onlineBackup&rdquo;, &ldquo;dependents&rdquo;, &ldquo;internetService&rdquo;, &ldquo;techSupport&rdquo;]</p>
+<img src="Picture/4.png" width="600">
+<p>从 Log-Log 生存曲线图来看，<code>dependents</code> 变量的两条曲线较为平行，符合比例风险假设，而 <code>onlineBackup</code>、<code>internetService_DSL</code> 和 <code>techSupport</code> 变量的曲线明显交叉或不平行，说明它们可能不满足比例风险假设，需要进一步调整模型，如分层分析或引入时间交互项。</p>
+<h3 id="加速失效时间模型">加速失效时间模型
+</h3><h4 id="模型介绍-1">模型介绍
+</h4><p>加速失效时间模型（AFT模型）是一种常用于生存分析的统计模型，它通过观察影响生存时间的因素来分析个体的生存时间。与Cox比例风险模型（Cox Proportional Hazards Model）不同，AFT模型主要是通过加速或减慢失效时间的方式来描述变量对失效时间的影响。AFT模型是对生存时间进行建模的，它常使用在工业领域，如研究零件寿命受温度的影响，因此把生存时间称为失效时间（Failure Time）。</p>
+<p>在AFT模型中，假设失效时间（或生存时间） $T$ 与一个给定的协变量 $X$ 之间存在关系。具体来说，模型可以用下列公式表示：</p>
+$$
+T = \lambda \cdot \exp(\beta X) \cdot \epsilon
+$$<p>其中：</p>
+<ul>
+<li>$T$ 是失效时间或生存时间。</li>
+<li>$\lambda$ 是一个标度参数，通常由数据估计。</li>
+<li>$\beta$ 是待估计的回归系数，代表协变量 $X$ 对生存时间的影响。</li>
+<li>$X$ 是协变量（例如温度、压力等）。</li>
+<li>$\epsilon$ 是一个误差项，通常假设 $\epsilon$ 来自某种分布，如对数正态分布，即 $\epsilon \sim \text{LogNormal}$。</li>
+</ul>
+<p>为了更好地理解AFT模型，假设误差项 $\epsilon$ 来自对数正态分布，那么该模型可以表示为：</p>
+$$
+\ln(T) = \ln(\lambda) + \beta X + \epsilon
+$$<p>其中，$\epsilon$ 的分布为：</p>
+$$
+\epsilon \sim \text{Normal}(0, 1)
+$$<p>AFT模型的核心思想是，协变量对失效时间的影响是通过加速（或减慢）失效过程的方式体现的。例如，在工业工程中，温度过高可能会加速零件的失效，因此在这种情况下，温度的增加会导致失效时间的加速。</p>
+<h4 id="模型构建-2">模型构建
+</h4><p>与cox回归模型相同，首先对数据集进行了独热编码，这里便不再阐述。再使用 <strong>Log-Logistic AFT（加速失效时间）模型</strong> 对客户流失（churn）进行生存分析，以评估不同特征对客户留存时间（tenure）的影响，并计算中位生存时间。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">survival_pd</span> <span class="o">=</span> <span class="n">encoded_pd</span><span class="p">[[</span><span class="s1">&#39;churn&#39;</span><span class="p">,</span> <span class="s1">&#39;tenure&#39;</span><span class="p">,</span> <span class="s1">&#39;partner_Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;multipleLines_Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;internetService_DSL&#39;</span><span class="p">,</span> <span class="s1">&#39;onlineSecurity_Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;onlineBackup_Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;deviceProtection_Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;techSupport_Yes&#39;</span><span class="p">,</span> <span class="s1">&#39;paymentMethod_Bank transfer (automatic)&#39;</span><span class="p">,</span> <span class="s1">&#39;paymentMethod_Credit card (automatic)&#39;</span><span class="p">]]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="实验结果-2">实验结果
+</h4><h5 id="拟合加速失效时间模型">拟合加速失效时间模型
+</h5><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>指标</th>
+          <th>值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>模型</strong></td>
+          <td>lifelines.LogLogisticAFTFitter</td>
+      </tr>
+      <tr>
+          <td><strong>生存时间列</strong></td>
+          <td>&rsquo;tenure'</td>
+      </tr>
+      <tr>
+          <td><strong>事件列</strong></td>
+          <td>&lsquo;churn&rsquo;</td>
+      </tr>
+      <tr>
+          <td><strong>观测数</strong></td>
+          <td>3351</td>
+      </tr>
+      <tr>
+          <td><strong>事件数</strong></td>
+          <td>1556</td>
+      </tr>
+      <tr>
+          <td><strong>对数似然</strong></td>
+          <td>-6838.36</td>
+      </tr>
+      <tr>
+          <td><strong>拟合时间</strong></td>
+          <td>2025-03-26 12:17:08 UTC</td>
+      </tr>
+  </tbody>
+</table></div>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>变量</th>
+          <th>coef</th>
+          <th>exp(coef)</th>
+          <th>se(coef)</th>
+          <th>coef lower 95%</th>
+          <th>coef upper 95%</th>
+          <th>exp(coef) lower 95%</th>
+          <th>exp(coef) upper 95%</th>
+          <th>z</th>
+          <th>p</th>
+          <th>-log2(p)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>deviceProtection_Yes</strong></td>
+          <td>0.48</td>
+          <td>1.62</td>
+          <td>0.07</td>
+          <td>0.35</td>
+          <td>0.62</td>
+          <td>1.41</td>
+          <td>1.86</td>
+          <td>6.88</td>
+          <td>&lt;0.005</td>
+          <td>37.25</td>
+      </tr>
+      <tr>
+          <td><strong>internetService_DSL</strong></td>
+          <td>0.38</td>
+          <td>1.47</td>
+          <td>0.08</td>
+          <td>0.23</td>
+          <td>0.53</td>
+          <td>1.26</td>
+          <td>1.71</td>
+          <td>4.98</td>
+          <td>&lt;0.005</td>
+          <td>20.59</td>
+      </tr>
+      <tr>
+          <td><strong>multipleLines_Yes</strong></td>
+          <td>0.66</td>
+          <td>1.94</td>
+          <td>0.07</td>
+          <td>0.53</td>
+          <td>0.80</td>
+          <td>1.70</td>
+          <td>2.22</td>
+          <td>9.64</td>
+          <td>&lt;0.005</td>
+          <td>70.70</td>
+      </tr>
+      <tr>
+          <td><strong>onlineBackup_Yes</strong></td>
+          <td>0.81</td>
+          <td>2.25</td>
+          <td>0.07</td>
+          <td>0.68</td>
+          <td>0.95</td>
+          <td>1.97</td>
+          <td>2.59</td>
+          <td>11.63</td>
+          <td>&lt;0.005</td>
+          <td>101.50</td>
+      </tr>
+      <tr>
+          <td><strong>onlineSecurity_Yes</strong></td>
+          <td>0.86</td>
+          <td>2.37</td>
+          <td>0.09</td>
+          <td>0.69</td>
+          <td>1.03</td>
+          <td>2.00</td>
+          <td>2.80</td>
+          <td>10.12</td>
+          <td>&lt;0.005</td>
+          <td>77.60</td>
+      </tr>
+      <tr>
+          <td><strong>partner_Yes</strong></td>
+          <td>0.68</td>
+          <td>1.97</td>
+          <td>0.07</td>
+          <td>0.55</td>
+          <td>0.81</td>
+          <td>1.73</td>
+          <td>2.24</td>
+          <td>10.21</td>
+          <td>&lt;0.005</td>
+          <td>78.93</td>
+      </tr>
+      <tr>
+          <td><strong>paymentMethod_Bank transfer (automatic)</strong></td>
+          <td>0.74</td>
+          <td>2.10</td>
+          <td>0.09</td>
+          <td>0.56</td>
+          <td>0.92</td>
+          <td>1.75</td>
+          <td>2.51</td>
+          <td>8.05</td>
+          <td>&lt;0.005</td>
+          <td>50.07</td>
+      </tr>
+      <tr>
+          <td><strong>paymentMethod_Credit card (automatic)</strong></td>
+          <td>0.80</td>
+          <td>2.22</td>
+          <td>0.10</td>
+          <td>0.61</td>
+          <td>0.99</td>
+          <td>1.84</td>
+          <td>2.68</td>
+          <td>8.36</td>
+          <td>&lt;0.005</td>
+          <td>53.81</td>
+      </tr>
+      <tr>
+          <td><strong>techSupport_Yes</strong></td>
+          <td>0.69</td>
+          <td>1.99</td>
+          <td>0.09</td>
+          <td>0.52</td>
+          <td>0.86</td>
+          <td>1.68</td>
+          <td>2.36</td>
+          <td>7.90</td>
+          <td>&lt;0.005</td>
+          <td>48.37</td>
+      </tr>
+      <tr>
+          <td><strong>Intercept</strong></td>
+          <td>1.59</td>
+          <td>4.91</td>
+          <td>0.07</td>
+          <td>1.46</td>
+          <td>1.72</td>
+          <td>4.32</td>
+          <td>5.58</td>
+          <td>24.47</td>
+          <td>&lt;0.005</td>
+          <td>436.88</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>Beta 估计值</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>变量</th>
+          <th>coef</th>
+          <th>exp(coef)</th>
+          <th>se(coef)</th>
+          <th>coef lower 95%</th>
+          <th>coef upper 95%</th>
+          <th>exp(coef) lower 95%</th>
+          <th>exp(coef) upper 95%</th>
+          <th>z</th>
+          <th>p</th>
+          <th>-log2(p)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Intercept</strong></td>
+          <td>0.12</td>
+          <td>1.13</td>
+          <td>0.02</td>
+          <td>0.08</td>
+          <td>0.16</td>
+          <td>1.08</td>
+          <td>1.17</td>
+          <td>5.71</td>
+          <td>&lt;0.005</td>
+          <td>26.42</td>
+      </tr>
+  </tbody>
+</table></div>
+<p><strong>模型评估指标</strong></p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>指标</th>
+          <th>值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>一致性指数 (Concordance)</strong></td>
+          <td>0.73</td>
+      </tr>
+      <tr>
+          <td><strong>AIC (赤池信息准则)</strong></td>
+          <td>13698.72</td>
+      </tr>
+      <tr>
+          <td><strong>对数似然比检验</strong></td>
+          <td>877.49 on 9 df</td>
+      </tr>
+      <tr>
+          <td><strong>-log2(p) of ll-ratio test</strong></td>
+          <td>605.78</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>Log-Logistic AFT 模型的结果表明，多个变量对用户流失时间（tenure）有显著影响，所有特征的 <strong>exp(coef) &gt; 1</strong>，说明它们都与更长的用户留存时间正相关。例如，<strong>onlineSecurity_Yes (exp(coef) = 2.37)</strong> 和 <strong>onlineBackup_Yes (exp(coef) = 2.25)</strong> 对留存时间的影响较大，说明使用这些服务的用户更可能长期留存。此外，模型的一致性指数（Concordance = 0.73）表明模型具有较好的预测能力，总体而言，该模型能够较好地解释影响用户流失的因素。</p>
+<h5 id="加速失效时间模型假设检验">加速失效时间模型假设检验
+</h5><img src="Picture/5.png" width="600">
+<p>从Log-Logistic AFT 图像中可以看出，<strong>在线安全、在线备份、技术支持、自动支付等因素显著延长了客户留存时间</strong>，其中 <strong>在线安全和在线备份的影响最大</strong>。所有变量的影响均为正，说明它们有助于减少用户流失，且统计上显著。</p>
+<img src="Picture/6.png" width="600">
+<p>从 Log-Log 生存曲线图来看，除了<em>Internetservice</em>所有变量的曲线都交叉或不平行，说明它们可能不满足比例风险假设，需要进一步调整模型。</p>
+<h3 id="客户终身价值">客户终身价值
+</h3><h4 id="生命周期价值ltv">生命周期价值（LTV）
+</h4><p>为了预测电信客户的生命周期价值（LTV）。它通过Cox比例风险模型计算客户留存概率，并基于用户输入的客户特征（如是否开通技术支持、宽带类型等）和折现率，动态生成包含以下内容的财务分析表：逐月生存概率、预期利润、净现值（NPV）以及累计NPV，同时可视化展示12/24/36个月的关键投资回报节点，帮助企业量化不同客户群的经济价值。</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>Contract Month</th>
+          <th>Survival Probability</th>
+          <th>Monthly Profit for the Selected Plan</th>
+          <th>Avg Expected Monthly Profit</th>
+          <th>NPV of Avg Expected Monthly Profit</th>
+          <th>Cumulative NPV</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>1.00</td>
+          <td>30</td>
+          <td>30.0</td>
+          <td>30.00</td>
+          <td>30.00</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>0.87</td>
+          <td>30</td>
+          <td>26.1</td>
+          <td>25.88</td>
+          <td>55.88</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>0.81</td>
+          <td>30</td>
+          <td>24.3</td>
+          <td>23.90</td>
+          <td>79.78</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>0.77</td>
+          <td>30</td>
+          <td>23.1</td>
+          <td>22.53</td>
+          <td>102.31</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>0.74</td>
+          <td>30</td>
+          <td>22.2</td>
+          <td>21.48</td>
+          <td>123.79</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>0.71</td>
+          <td>30</td>
+          <td>21.3</td>
+          <td>20.43</td>
+          <td>144.22</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>0.69</td>
+          <td>30</td>
+          <td>20.7</td>
+          <td>19.69</td>
+          <td>163.91</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>0.67</td>
+          <td>30</td>
+          <td>20.1</td>
+          <td>18.97</td>
+          <td>182.88</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>0.65</td>
+          <td>30</td>
+          <td>19.5</td>
+          <td>18.25</td>
+          <td>201.13</td>
+      </tr>
+      <tr>
+          <td>10</td>
+          <td>0.63</td>
+          <td>30</td>
+          <td>18.9</td>
+          <td>17.54</td>
+          <td>218.67</td>
+      </tr>
+      <tr>
+          <td>11</td>
+          <td>0.60</td>
+          <td>30</td>
+          <td>18.0</td>
+          <td>16.57</td>
+          <td>235.24</td>
+      </tr>
+      <tr>
+          <td>12</td>
+          <td>0.59</td>
+          <td>30</td>
+          <td>17.7</td>
+          <td>16.16</td>
+          <td>251.40</td>
+      </tr>
+      <tr>
+          <td>13</td>
+          <td>0.57</td>
+          <td>30</td>
+          <td>17.1</td>
+          <td>15.48</td>
+          <td>266.88</td>
+      </tr>
+      <tr>
+          <td>14</td>
+          <td>0.55</td>
+          <td>30</td>
+          <td>16.5</td>
+          <td>14.81</td>
+          <td>281.69</td>
+      </tr>
+      <tr>
+          <td>15</td>
+          <td>0.54</td>
+          <td>30</td>
+          <td>16.2</td>
+          <td>14.42</td>
+          <td>296.11</td>
+      </tr>
+      <tr>
+          <td>16</td>
+          <td>0.52</td>
+          <td>30</td>
+          <td>15.6</td>
+          <td>13.77</td>
+          <td>309.88</td>
+      </tr>
+      <tr>
+          <td>17</td>
+          <td>0.51</td>
+          <td>30</td>
+          <td>15.3</td>
+          <td>13.40</td>
+          <td>323.28</td>
+      </tr>
+      <tr>
+          <td>18</td>
+          <td>0.50</td>
+          <td>30</td>
+          <td>15.0</td>
+          <td>13.03</td>
+          <td>336.31</td>
+      </tr>
+      <tr>
+          <td>19</td>
+          <td>0.48</td>
+          <td>30</td>
+          <td>14.4</td>
+          <td>12.40</td>
+          <td>348.71</td>
+      </tr>
+      <tr>
+          <td>20</td>
+          <td>0.47</td>
+          <td>30</td>
+          <td>14.1</td>
+          <td>12.04</td>
+          <td>360.75</td>
+      </tr>
+      <tr>
+          <td>21</td>
+          <td>0.46</td>
+          <td>30</td>
+          <td>13.8</td>
+          <td>11.69</td>
+          <td>372.44</td>
+      </tr>
+      <tr>
+          <td>22</td>
+          <td>0.45</td>
+          <td>30</td>
+          <td>13.5</td>
+          <td>11.34</td>
+          <td>383.78</td>
+      </tr>
+      <tr>
+          <td>23</td>
+          <td>0.44</td>
+          <td>30</td>
+          <td>13.2</td>
+          <td>11.00</td>
+          <td>394.78</td>
+      </tr>
+      <tr>
+          <td>24</td>
+          <td>0.43</td>
+          <td>30</td>
+          <td>12.9</td>
+          <td>10.66</td>
+          <td>405.44</td>
+      </tr>
+      <tr>
+          <td>25</td>
+          <td>0.42</td>
+          <td>30</td>
+          <td>12.6</td>
+          <td>10.32</td>
+          <td>415.76</td>
+      </tr>
+  </tbody>
+</table></div>
+<ul>
+<li>
+<p><strong>存活概率下降趋势明显</strong>：随着合同月份的增加，存活概率（Survival Probability）从 1.00 逐渐下降到 0.42，表明客户流失随着时间的推移而增加。</p>
+</li>
+<li>
+<p><strong>平均期望月利润下降</strong>：由于存活概率的降低，客户平均每月可带来的期望利润也逐步减少，从 30 降到 12.6。</p>
+</li>
+<li>
+<p><strong>净现值（NPV）随时间增长但增速放缓</strong>：累积 NPV 从 30 增长到 415.76，但增幅随时间推移逐渐变缓，表明随着客户流失，长期收益受到影响。</p>
+</li>
+<li>
+<p><strong>客户流失影响长期收益</strong>：尽管每月利润固定，但因流失率较高，长周期客户的累计利润贡献降低，因此提高客户留存率对长期收益至关重要。</p>
+</li>
+</ul>
+<h4 id="npv-图表">NPV 图表
+</h4><img src="Picture/7.png" width="500">
+<img src="Picture/8.png" width="500">
+<p>从图中可以看出，尽管累积 NPV 随时间增长，但增长速率逐渐放缓。这是由于随着时间的推移，存活的客户数量减少，导致未来现金流的折现值逐步降低。在后期，随着存活概率下降，NPV 增长曲线趋于平稳，说明客户流失对企业的长期收益产生较大影响。因此，提高客户留存率（如优化服务质量、提供长期激励）对于维持持续增长至关重要。</p>
+<h3 id="总结">总结
+</h3><p>本分析使用来自 IBM 的模拟电信公司数据集，每条记录代表一位订户，包含人口统计、服务计划、媒体使用及订阅状态等信息。研究重点在于客户的服务期限和流失情况，以评估影响客户生命周期的关键因素。采用 Kaplan-Meier 估计与对数秩检验分析不同客户群体的生存概率，利用 Cox 比例风险模型衡量各因素对客户流失的影响，并通过加速失效时间（AFT）模型评估变量对客户生命周期的作用。最终，生存分析结果被用于计算客户终身价值（CLV），为业务优化和客户管理提供数据支持。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E7%94%9F%E5%AD%98%E5%88%86%E6%9E%90/">生存分析</a>
+        
+            <a href="/tags/%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%B3%95/">统计方法</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 Example Person
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url(https://shijiahui2023.github.io/background/background.png) no-repeat center center;
+    background-size: cover;
+    opacity: 0.3;   
+    z-index: -1;    
+    pointer-events: none;   
+  }
+
+  body {
+    position: relative;   
+    background: transparent;   
+  }
+</style>
+    </body>
+</html>
