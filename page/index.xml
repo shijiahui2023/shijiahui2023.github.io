@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Pages on 演示站点</title>
+        <title>Pages on pikapika的个人基站</title>
         <link>https://shijiahui2023.github.io/page/</link>
-        <description>Recent content in Pages on 演示站点</description>
+        <description>Recent content in Pages on pikapika的个人基站</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
         <lastBuildDate>Tue, 28 May 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://shijiahui2023.github.io/page/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Archives</title>
+        <title>归档</title>
         <link>https://shijiahui2023.github.io/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
@@ -16,11 +16,23 @@
         <description></description>
         </item>
         <item>
-        <title>Links</title>
-        <link>https://shijiahui2023.github.io/links/</link>
+        <title>关于我自己</title>
+        <link>https://shijiahui2023.github.io/%E5%85%B3%E4%BA%8E%E6%88%91%E8%87%AA%E5%B7%B1/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://shijiahui2023.github.io/links/</guid>
+        <guid>https://shijiahui2023.github.io/%E5%85%B3%E4%BA%8E%E6%88%91%E8%87%AA%E5%B7%B1/</guid>
+        <description>&lt;p&gt;南科大数据科学大四小菜鸡一枚&lt;/p&gt;
+&lt;p&gt;欢迎随时和我交流&lt;/p&gt;
+&lt;p&gt;+v 13513627265&lt;/p&gt;
+&lt;p&gt;+q 2678902924&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>链接</title>
+        <link>https://shijiahui2023.github.io/%E9%93%BE%E6%8E%A5/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://shijiahui2023.github.io/%E9%93%BE%E6%8E%A5/</guid>
         <description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
 &lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -51,21 +63,12 @@
 </description>
         </item>
         <item>
-        <title>Search</title>
+        <title>搜索</title>
         <link>https://shijiahui2023.github.io/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
         <guid>https://shijiahui2023.github.io/search/</guid>
         <description></description>
-        </item>
-        <item>
-        <title>关于</title>
-        <link>https://shijiahui2023.github.io/%E5%85%B3%E4%BA%8E/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://shijiahui2023.github.io/%E5%85%B3%E4%BA%8E/</guid>
-        <description>&lt;p&gt;This is a test page for i18n support.&lt;/p&gt;
-</description>
         </item>
         
     </channel>
